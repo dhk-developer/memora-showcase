@@ -1,213 +1,221 @@
 # PageBeat
- **PageBeat is an original, story-driven rhythm game in active development.**
->
-> It combines precision rhythm gameplay, a camera-recording visual language, a bespoke Unity authoring workflow and a character-led presentation layer. The public repository is a technical and creative case study, not a source release.
 
-<!-- Optional repository banner. Add only after you have an approved public asset.
-![PageBeat banner](media/branding/pagebeat-banner.png)
+> An original, choreography-led rhythm game in development, built in Unity with C#.
+
+ PageBeat takes direct inspiration from preceding rhythm games, such as *Phigros*, *Arcaea*, *Tone Sphere*, etc.
+ 
+PageBeat is an independent original project with its own systems, visual direction, tools and narrative framing. The game is designed so that a chart has several distinct layers, each with a clear job:
+
+- **Gameplay objects** define what the player can actually hit, where the target is and when it is judged.
+- **Visual approach tracks** determine how a playable note enters, moves through and exits the field.
+- **Floating notes and moving target points** allow patterns to exist away from a judgement line without turning the entire gamefield into guesswork.
+- **Choreography and camera events** animate the space around the chart without becoming accidental gameplay.
+- **Visual-only notes and effects** can sell a musical idea while remaining explicitly non-interactive.
+
+The production project, source code, beatmaps, music, story material and unreleased assets are all credited to myself, as the sole author of this project. There are current no plans to open this project up for open source / collaborative work. In this public repository, I have exposed some features of the game as a public case study: a record of the design direction, engineering problems and approved media that can be shared before launch.
+
+<!--
+Suggested hero media: a 10-15 second muted gameplay GIF showing a moving line, floating notes,
+visual approach animation and a short hit-feedback sequence.
+
+<p align="center">
+  <img src="media/gameplay/pagebeat-hero.gif" alt="PageBeat gameplay showing moving judgement lines, floating notes and visual choreography" width="100%" />
+</p>
 -->
 
----
+## What the player is reading
 
-## At a glance
+In PageBeat, the field is authored as a moving space.
 
-| Area | What PageBeat is exploring |
-| --- | --- |
-| **Genre** | A rhythm game built around timing, moving judgement lines and expressive chart presentation. |
-| **Creative identity** | A light, camera-recording interface frames the performance through a rim, aperture and recording language rather than treating the playfield as a static lane. |
-| **Gameplay** | Tap, flick, hold and slide interactions are timed against a beat-synchronised gamefield. Notes can be presented through varied trajectories and visual approaches while preserving a clear timing contract. |
-| **Authoring** | A custom Unity Editor beatmap workspace supports internal chart creation, audio preview, timeline-driven editing, visual motion and event authoring. |
-| **Technical focus** | Beat-domain timing, data-driven charts, responsive custom UI, deterministic visual motion, editor performance and careful separation of gameplay rules from presentation. |
-| **Project status** | In active development. Public materials are curated to show the work without exposing production code, commercial assets, unreleased content or proprietary chart data. |
+A playable note still has an unambiguous judgement contract: a scheduled beat, a target location, a note action and, where relevant, a duration or anchor path. That contract is deliberately separate from how the note is drawn. A note may drift in from the edge, spiral around its target, snap between beats, fade in late, overshoot the judgement point or leave a short visual tail after it has been hit. None of that changes the moment at which the player is judged.
 
----
+### Judgement lines as chart actors
 
-## What is PageBeat?
+Judgement lines are authored objects rather than a fixed backdrop as expected in typical VSRGs. They can move, rotate, enter, leave and change their role over the course of a chart. This is very similar to their function in another rhythm game, Phigros, which is, to this author's knowledge, the most modern innovator of this design. A dense phrase can bring attention into a tight central area; a musical release can open the field back out; a rotation can redirect the eye before a new pattern begins.
 
-PageBeat is built around a simple idea: a rhythm game should feel like a performance being recorded, not merely a sequence of objects falling through a fixed lane.
+The line is still a functional target. Its movement is evaluated from chart data, not improvised at runtime, so the same section can be rehearsed, previewed and played consistently.
 
-The player interacts with notes as they reach active judgement lines, but the field itself is expressive. Lines can move, rotate, appear in different configurations and participate in the musical choreography. Notes can approach through carefully directed visual paths, while the underlying judgement remains anchored to beat timing and the intended hit position. The goal is to create charts that are readable at speed but still have the sense of motion, framing and visual punctuation associated with a music performance.
+<!--
+Suggested media: a clean gameplay screenshot with two or more active lines at visibly different angles.
+Avoid revealing an unreleased song title, full chart timeline or source-code panels.
 
-Outside the gamefield, PageBeat uses a character-led interface and a narrative presentation layer. The game is designed to give the rhythm gameplay an identity beyond a menu and song list, while keeping the core interaction immediate: hear the music, read the field, act on the beat.
-
----
-
-## Core gameplay
-
-### Timing first
-
-PageBeat is designed around beat-based timing. Each chart is authored in musical beats rather than as a loose sequence of screen timestamps. This gives the authoring tools and runtime a shared musical coordinate system: notes, line events, visual effects and scene-level choreography can all be described against the same timeline.
-
-At runtime, audio scheduling and gameplay timing are treated as related but distinct concerns. The game uses a stable timing reference for judging player input, while player calibration is handled separately so that an individual device or audio setup can be adjusted without changing the chart itself. This matters for rhythm play because the game should preserve the authored musical relationship even when a player needs to account for their own display, controller or audio latency.
-
-The scoring model supports graded timing outcomes, combo progression and result construction. The visible result is intended to tell the player more than whether a chart was completed: it reflects timing accuracy, consistency and performance across the song.
-
-### Notes and interactions
-
-The playable vocabulary currently centres on four familiar rhythm interactions, presented in a PageBeat-specific field:
-
-- **Tap notes** reward a timed press as the note reaches the judgement line.
-- **Flick notes** introduce directional or gesture-based input at the moment of judgement.
-- **Hold notes** require a timed start followed by sustained control through their active duration.
-- **Slide notes** use anchors and continuous progression to create a path-based interaction rather than a single isolated hit.
-
-The note system is deliberately not limited to one static lane direction. The game can present notes through different approach directions and visual trajectories, allowing a chart to shape attention and momentum in response to the music.
-
-**Suggested explanatory still:** `media/gameplay/note-types-and-feedback.png`  
-Place this immediately after the note list. Capture a clean, staged view showing tap, flick, hold and slide examples at once, with no debug labels or internal chart IDs.
-
-<!-- Replace when ready:
-![A staged note-type overview](media/gameplay/note-types-and-feedback.png)
+<p align="center">
+  <img src="media/gameplay/moving-judgement-lines.png" alt="PageBeat gameplay with independently moving judgement lines" width="100%" />
+</p>
 -->
 
-### A responsive gamefield rather than a fixed lane
+## Playable notes, floating notes and visual-only notes
 
-Judgement lines are active gameplay objects. They can form the visual backbone of a chart, but they can also change their pose and presence over time. This creates room for charts where the visual field moves with the rhythm rather than simply displaying notes above a permanently fixed target.
+The playable chart supports the expected input vocabulary, but the important part is where those notes can live and how they can be presented.
 
-The important design constraint is clarity. PageBeat treats readability as a gameplay requirement, not an afterthought. Motion, visual effects and note approaches are intended to support the player’s understanding of when and where to act. The charting workflow therefore separates the **gameplay pose** of a note or line from visual-only movement where appropriate. A note can have a more expressive visual entrance without making the timing target ambiguous.
+### Judgement-line notes
 
-This distinction is one of the project’s central engineering ideas. It makes ambitious presentation possible without allowing decorative animation to silently change the gameplay rule underneath the player.
+A standard note belongs to a judgement line. Its hit position is resolved from that line’s authored state at the scheduled beat. This is the base layer for the chart, and it remains intentionally readable even when the surrounding presentation is ambitious.
 
-### Visual approach tracks
+### Floating notes
 
-Each note can be given a keyframed visual approach. Rather than relying only on a single linear spawn-to-hit path, the author can define a controlled sequence of visual states over the note’s visible lifetime. These states can affect presentation properties such as position, scale, rotation and alpha, with easing used to shape how the motion travels between points.
+Floating notes are not attached to a line. They occupy authored positions in the visible playfield and can be used for patterns that would feel cramped or artificial if they had to remain line-relative.
 
-The system supports non-linear movement that is useful for musical emphasis: a note can drift, arc, overshoot, settle, fade, or carry a short visual tail after its gameplay moment. PageBeat also supports persistence beyond the nominal hit moment where the visual design calls for it. That is useful for creating controlled afterimages, resolving motion and effects that complete naturally rather than abruptly disappearing at the exact point of judgement.
+A floating note can resolve in several ways:
 
-The gameplay result remains authoritative. Visual persistence is presentation, not an extra judgement window.
+- at its own authored position;
+- at the scheduled position of another note; or
+- at an authored judgement point, including one that is moving before the hit.
 
-**Suggested technical visual:** `media/editor/visual-approach-keyframes.png`  
-Place this after the visual-approach section. Use the editor panel and preview side by side. Crop out file paths, song titles, full chart data and any production-only preset names.
+That makes it possible to build patterns where an object appears to travel into another target, converge on a moving point or arrive at a location that is only briefly relevant to the chart. Floating notes can also carry the same playable behaviours as the rest of the gamefield, including holds and slide paths.
 
-<!-- Replace when ready:
-![Visual approach keyframes and preview](media/editor/visual-approach-keyframes.png)
+The key constraint is that a floating pattern still needs a reliable final read. The movement may be elaborate, but the hit target at the judgement beat is deterministic.
+
+### Visual-only notes
+
+Not every note-shaped object in PageBeat is an input.
+
+A visual-only note is rendered and animated through the same presentation language as a playable note, but it is never judged, scored, missed or handled by autoplay. It exists solely to support the choreography of a section: a fake pattern that passes behind the real chart, a burst of objects on a drop, a mirrored movement that makes a playable route easier to understand, or a deliberately misleading-looking flourish that remains clearly outside the active read.
+
+<!--
+Suggested media: a short labelled GIF. Keep the labels in the image itself rather than the README body:
+"Playable note", "Floating note", "Visual-only note".
+
+<p align="center">
+  <img src="media/gameplay/playable-floating-visual-only.gif" alt="Comparison of PageBeat playable notes, floating notes and visual-only notes" width="100%" />
+</p>
 -->
 
----
+## Visual approach tracks
 
-## The camera-recording visual language
+A note’s approach is not limited to a fixed scroll direction.
 
-PageBeat frames gameplay through a camera-inspired interface. A rim and corner treatment establish the screen as a recording space, while aperture and recording elements create a sense of focus, capture and musical punctuation.
+Each note can carry a **visual approach track**, an authored set of keyframes evaluated in musical time. The track controls the presentation of the note relative to its actual judgement target. In practice, that means a chart author can shape position, rotation, scale, opacity and easing over the note’s visible life without changing its beat, input type or hit location.
 
-This visual language is not intended to obscure the field. It provides a consistent identity across gameplay, menus and transitions while leaving the notes and judgement lines readable. The camera motif also gives the team a useful design vocabulary for choreography: framing can tighten, rotate, breathe or respond to musical structure without making the game feel like a generic overlay.
+This is not a generic animation system added on top of the chart. It is authored in the same beat domain as the note itself, which means its motion can be designed around phrases, subdivisions and accents rather than arbitrary seconds on a timeline.
 
-The playfield is complemented by subtle feedback effects. Input moments can produce concise visual confirmation, and line-level effects can reinforce impact without turning every action into a large screen-wide interruption. The emphasis is on fast feedback that helps the player feel connected to the beat.
+### What this changes in practice
 
-**Suggested detail still:** `media/gameplay/camera-rim-and-aperture.png`  
-Place this here. Capture a section where the camera rim, aperture and note feedback are visible together, preferably during a visually calm passage so the framing reads clearly.
+Visual approach tracks make several otherwise awkward chart ideas usable:
 
-<!-- Replace when ready:
-![Camera rim, aperture and gameplay feedback](media/gameplay/camera-rim-and-aperture.png)
+- A note can enter on a curve, then settle into a clean final approach.
+- A sequence can step forward in musical increments rather than scrolling smoothly.
+- A note can orbit or sway around a target before resolving into a clear hit.
+- A hold or slide can retain a visual tail after its playable end point, allowing the image to finish a movement without extending the judgement window.
+- A note can cross the nominal `t = 1` hit point visually, creating an overshoot or exit, while the gameplay event has already resolved.
+
+The distinction between **visual completion** and **gameplay completion** is intentional. A player should never be asked to keep holding because an effect is still on screen, and an effect should not have to disappear abruptly just because the timing object has been judged.
+
+### Readability controls
+
+The authoring system also treats visibility as a deliberate part of the chart. A note’s visual lead window is defined separately from the keyframes themselves, so an elaborate animation does not accidentally make a note appear too early or too late. Lead timing can be managed from global scroll-speed behaviour or overridden by the chart author for a specific note.
+
+<!--
+Suggested media: an editor screenshot showing the keyframe timeline and gamefield preview together.
+Crop out raw JSON, complete song metadata and any work-in-progress story material.
+
+<p align="center">
+  <img src="media/editor/visual-approach-keyframes.png" alt="PageBeat visual approach keyframes alongside the gamefield preview" width="100%" />
+</p>
 -->
 
----
+## Motion without changing judgement
 
-## Chart choreography and visual systems
+PageBeat has two related but separate motion systems.
 
-### Data-driven charts
+### Gameplay motion
 
-PageBeat uses a data-driven beatmap model. A chart can define notes, judgement lines, line events, visual line effects, camera/aperture events, global choreography, visual layers, judgement points and scroll-speed changes through structured chart data.
+Gameplay motion changes a chart object’s actual authored target state. This includes judgement-line transforms, moving judgement points and the target paths that matter to playable notes. Because it affects what the player reads, it is part of the chart’s functional timing data.
 
-This approach gives the project a practical authoring benefit: music-facing decisions can be captured as data and previewed without recompiling gameplay code for every chart change. It also supports the separation of reusable runtime systems from song-specific creative content.
+### Presentation motion
 
-The public repository does not include production beatmaps, the full data schema, custom chart libraries or authoring presets. Those are part of the unreleased game’s content pipeline. What is shared here is the design approach: PageBeat is structured so that musical intent can be represented, validated and rendered as a coherent system.
+Presentation motion changes how something looks on its way to, around or away from that target. This includes visual approach tracks, non-linear approach patterns, scale and opacity behaviour, animation tails, note-local effects and visual-only actors.
 
-### Choreography as a first-class charting concern
+PageBeat’s interface is framed as a camera recording a performance. The gamefield includes a camera rim, corner markers, aperture treatment and recording cues. They give the chart a consistent visual language for framing attention, building pressure and releasing it again.
 
-In PageBeat, choreography is not limited to note placement. The chart can use the surrounding field as part of the music’s visual performance. Judgement lines can be animated, visual layers can be introduced or adjusted, and camera/aperture events can mark a musical transition, accent or section change.
+The aperture and global camera layers can be timed as part of a chart. A section can contract, open up, rotate, pulse or briefly reframe the entire field while the note logic continues to follow its own beat-based rules.
 
-This makes charting closer to staging a short performance than arranging a fixed lane sequence. The technical challenge is maintaining a clear priority order: input and judgement must stay reliable, while visual systems remain synchronised and do not create runaway cost on larger maps.
+The aim is to give the game a recognisable vocabulary that connects the rhythm game, with the wider fiction of PageBeat - presenting a performance that is being recorded, replayed and shaped.
 
-### Repeatable musical structures
+<!--
+Suggested media: a high-resolution gameplay still where the camera rim and aperture are visible,
+but the field remains readable.
 
-The chart model supports repeat-oriented structures for events where a musical pattern recurs. This helps avoid manually recreating the same timing logic throughout a chart and allows authors to work at the level of musical phrases where appropriate. Repetition is still treated as authored intent rather than as uncontrolled randomisation, so the output remains predictable during editing and gameplay.
-
-**Suggested diagram:** `media/diagrams/chart-to-runtime-flow.png`  
-Place this after the choreography section. A simple diagram should show: Chart data → validation → runtime timing → gameplay judgement / visual presentation / feedback. Keep it high level; do not expose class diagrams or private JSON fields.
-
-<!-- Replace when ready:
-![High-level chart-to-runtime flow](media/diagrams/chart-to-runtime-flow.png)
+<p align="center">
+  <img src="media/gameplay/camera-rim-aperture.png" alt="PageBeat gamefield using the camera rim and aperture system" width="100%" />
+</p>
 -->
 
----
+## Choreography and VFX
 
-## Custom Unity beatmap editor
+The chart can drive a separate choreography layer that is not tied to a particular note. This gives a song room to build visual rhythm across the whole field rather than relying only on note motion.
 
-PageBeat includes a bespoke internal editor workspace built in Unity. It exists to make chart authoring practical for the developer, not to expose user-generated content tooling in the released game.
+The current library includes families of effects such as:
 
-The editor is designed around the real authoring loop:
+- moving and rotating rings;
+- scanner lines and barcode-style sweeps;
+- pulse tunnels and travelling wave patterns;
+- note rain, eruptions and bounce motifs;
+- edge visualisers, tangent rings and spectrogram-like halos;
+- hit-linked flashes, shakes, tilts, bursts and glitch treatments;
+- line-local feedback that responds to a successful hit without changing the judgement target.
 
-1. Select or load a chart and audio source.
-2. Navigate through the musical timeline using beat-domain controls and audio preview.
-3. Place or adjust notes, lines and related events.
-4. Inspect a local preview of how the gamefield will present the chosen section.
-5. Tune visual approach keyframes, line motion, layers, aperture events and other choreography.
-6. Validate the resulting data before runtime testing.
+These effects are authored as timed chart events with their own durations, fades, easing and parameter automation. They are deliberately independent of the scoring layer. A chart can use an effect to underline a kick drum, create a transition or draw the eye toward a new region of the field without inventing a fake gameplay rule to do it.
 
-The editor has received particular attention because it is where creative iteration and technical constraints meet. Authoring rhythm content is inherently visual, and a charting tool needs to make timing, density, motion and readability inspectable without requiring the developer to repeatedly enter a full play session for every small change.
+### Hit feedback
 
-### Audio preview and beat navigation
+The hit-feedback system is kept compact because the playfield already carries a lot of motion. Successful inputs produce a short, local response built from tapered arcs and a mixture of filled and hollow geometric particles. The visual language draws from the game’s soft white-and-blue base with note-specific accent colours, including pink for flicks and yellow for slide behaviour.
 
-The workspace supports audio-focused authoring, including waveform-oriented tooling, timeline navigation and preview controls. Slower, pitch-conscious preview workflows are part of the broader design so that dense passages can be inspected without losing their musical relationship.
+<!--
+Suggested media: a close-up GIF at normal speed or 50% capture speed showing hit feedback.
+A crop is more useful than a full-screen recording here.
 
-### Layered inspection
-
-Large charts can contain many categories of timed data. The editor therefore supports targeted inspection of layers and event types rather than forcing every authoring decision into one overloaded view. This helps keep the working surface legible while still allowing the developer to reason about how note timing, judgement-line behaviour and presentation systems interact.
-
-### Visual preview and performance work
-
-The gamefield preview is an important authoring feature but can become expensive when a chart contains many notes, visual events or active lines. PageBeat includes dedicated work on preview caching, scalable rendering and selective evaluation so the editor can remain usable as chart size increases.
-
-This is an active engineering area rather than a claim that all performance problems are solved. The project treats editor responsiveness as product-quality work because the speed of the authoring loop directly affects the quality and quantity of future chart content.
-
-**Suggested editor overview:** `media/editor/beatmap-editor-overview.png`  
-Place this at the start of the editor section. Capture the timeline, central preview and inspector at a readable scale. Redact or crop source folders, personal paths, unreleased track names and data values that would expose the production schema.
-
-<!-- Replace when ready:
-![PageBeat internal beatmap editor](media/editor/beatmap-editor-overview.png)
+<p align="center">
+  <img src="media/vfx/hit-feedback-close-up.gif" alt="PageBeat local hit feedback with tapered arcs and geometric particles" width="100%" />
+</p>
 -->
 
-**Suggested editor workflow GIF:** `media/gifs/editor-to-preview-workflow.gif`  
-Place this at the end of the editor section. A 6 to 10 second clip can show selecting an event, changing a value and observing the preview update. Avoid opening code windows or displaying full JSON files.
+<!--
+Suggested media: a second GIF that shows several choreography effects during a single musical section.
+Use only one polished example rather than a large gallery.
 
-<!-- Replace when ready:
-![Editor-to-preview workflow](media/gifs/editor-to-preview-workflow.gif)
+<p align="center">
+  <img src="media/vfx/choreo-showcase.gif" alt="PageBeat chart choreography and visual effects" width="100%" />
+</p>
 -->
 
----
+## Internal beatmap editor
 
-## Engineering approach
+The editor brings the chart’s major layers into one workspace:
 
-### Clear responsibilities between systems
+- note placement and timing;
+- judgement lines and their transform events;
+- floating notes, target-note links and target points;
+- visual approach keyframes and visible-lead behaviour;
+- visual-only notes;
+- choreography effects and parameter automation;
+- aperture and global camera events;
+- preset-driven starting points for recurring visual patterns;
+- local gamefield preview, audio preview, waveform support and slower playback for inspection.
 
-PageBeat is organised around separable responsibilities. The chart describes what should happen in musical time. Runtime systems resolve that data into notes, lines, state and effects. Presentation systems render the result. Scoring and results systems record the player’s performance. Editor systems help author and inspect the data without becoming part of the shipped player experience.
 
-This separation is useful for both development and debugging. It makes it easier to ask whether an issue is caused by the chart data, timing conversion, gameplay rule, visual resolver, editor preview or display layer, instead of treating the entire gamefield as one indivisible behaviour.
+### Preview fidelity and performance
 
-### Deterministic presentation where it matters
+The gamefield preview is used to inspect a chart section before a full play-through, so it needs to evaluate the same kinds of note, line and presentation data that runtime gameplay uses. Work on the editor has  included caching and selective evaluation so that the preview remains useful when the chart stops being small.
 
-Some visual motion is procedural, but it is designed to be reproducible. A charted moment should look consistent between editing and playback when the same authored inputs are used. This matters for rhythm content because unpredictable presentation makes it harder to validate whether a chart is fair, readable and musically intentional.
+<!--
+Suggested media: one full editor overview. Use an example chart with neutral or public-safe metadata.
+Do not show code, file paths, raw schema panels, unreleased song titles or spoilers.
 
-### Runtime performance and object reuse
-
-Rhythm gameplay can involve a large number of short-lived visual objects. PageBeat uses reusable runtime patterns to reduce avoidable allocation and instantiation cost during play. The aim is not only raw frame rate. It is consistency: timing-focused games benefit from stable behaviour when the screen becomes busy.
-
-### Responsive UI built for the game’s visual identity
-
-The menus and gameplay interface use custom UI components and theme-aware presentation rather than relying solely on generic default controls. The current direction combines a light, modern, high-contrast presentation with a camera-inspired frame and deliberately restrained accent colours.
-
-The main menu, song selection, settings, gameplay, loading and results experiences are treated as connected parts of the product. Scene transitions and feedback are designed to make moving between them feel intentional rather than like a series of disconnected Unity screens.
-
-### Player settings and calibration
-
-Player-facing settings include controls intended to support timing calibration and personal comfort. The project keeps player-specific offset handling distinct from the authored music timing so that adjustment for one player does not alter the intended chart for everyone else.
-
-**Suggested systems diagram:** `media/diagrams/pagebeat-systems-overview.png`  
-Place this after the engineering approach section. Show four boxes: Authoring, Chart Data, Runtime Gameplay, Player Experience. Connect them with simple arrows. Do not show private script names or repository topology.
-
-<!-- Replace when ready:
-![PageBeat systems overview](media/diagrams/pagebeat-systems-overview.png)
+<p align="center">
+  <img src="media/editor/beatmap-editor-overview.png" alt="PageBeat internal beatmap editor with chart timeline and gamefield preview" width="100%" />
+</p>
 -->
+
+<!--
+Suggested media: a short before-and-after GIF. Edit one visual approach keyframe, then show the preview result.
+This is likely the strongest engineering proof in the repository.
+
+<p align="center">
+  <img src="media/editor/keyframe-to-preview.gif" alt="Editing a PageBeat visual approach keyframe and reviewing the result in the preview" width="100%" />
+</p>
+-->
+
 
 ---
 
