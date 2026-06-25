@@ -1,21 +1,29 @@
-MIT License
+PageBeat is an original data-driven rhythm game in development, built in Unity with C#.
 
-Copyright (c) 2026 Dae Kang
+This repository is a public technical case study. The production source code, beatmaps, game content, artwork, audio and internal tooling remain private until launch.
 
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
+PageBeat is being developed around responsive music timing, data-driven chart events, custom Unity Editor tooling and a performance-conscious runtime gamefield.
 
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
+Key areas of work include:
 
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
+Beat-synchronised gameplay timing and input judgement
+Data-driven note, line, camera and visual-event systems
+Custom Unity Editor workflows for internal beatmap authoring
+Runtime pooling and preview optimisation for large beatmaps
+UI systems, animation sequencing and scene transitions
+Performance investigation and iterative profiling of the editor and gamefield
+Technical evidence
+
+This repository contains selected gameplay footage, annotated screenshots, architecture notes and engineering decisions from the project.
+
+For independently written public source examples inspired by the types of engineering problems solved during development, see the PageBeat Engineering Showcase repository.
+
+Technology
+
+Unity · C# · Custom Editor Tooling · JSON Data Modelling · Git · Performance Profiling
+
+Intellectual property
+
+© Daehurn Kang. All rights reserved.
+
+PageBeat is an unreleased commercial project. No production source code, game assets, audio, story content or beatmap data is licensed for reuse, redistribution or derivative work.
