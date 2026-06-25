@@ -1,0 +1,29 @@
+{
+  "bpm": 128.0,
+  "laneCount": 4,
+  "notes": [
+    {
+      "id": "intro-tap",
+      "type": 0,
+      "beat": 4.0,
+      "endBeat": 0.0,
+      "lane": 1,
+      "approach": [
+        { "beatOffset": -3.0, "progress": 0.0, "lateralOffset": -0.4, "normalOffset": 0.0, "alpha": 0.0, "scale": 0.75, "rotationDegrees": -18.0, "easeToNext": 3 },
+        { "beatOffset": -0.5, "progress": 0.82, "lateralOffset": 0.12, "normalOffset": 0.0, "alpha": 1.0, "scale": 1.05, "rotationDegrees": 8.0, "easeToNext": 2 },
+        { "beatOffset": 0.35, "progress": 1.0, "lateralOffset": 0.0, "normalOffset": 0.0, "alpha": 0.0, "scale": 1.2, "rotationDegrees": 24.0, "easeToNext": 0 }
+      ]
+    },
+    {
+      "id": "hold-example",
+      "type": 1,
+      "beat": 8.0,
+      "endBeat": 10.0,
+      "lane": 2,
+      "approach": [
+        { "beatOffset": -2.0, "progress": 0.0, "lateralOffset": 0.0, "normalOffset": 0.0, "alpha": 0.0, "scale": 0.8, "rotationDegrees": 0.0, "easeToNext": 1 },
+        { "beatOffset": 0.0, "progress": 1.0, "lateralOffset": 0.0, "normalOffset": 0.0, "alpha": 1.0, "scale": 1.0, "rotationDegrees": 0.0, "easeToNext": 0 }
+      ]
+    }
+  ]
+}
