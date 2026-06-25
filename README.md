@@ -7,9 +7,6 @@
 ![PageBeat banner](media/branding/pagebeat-banner.png)
 -->
 
-**Suggested hero visual:** `media/branding/pagebeat-banner.png`  
-A wide, clean key visual or cropped gameplay composition. Keep this free of spoilers, unreleased song names and UI that is still likely to change.
-
 ---
 
 ## At a glance
@@ -32,13 +29,6 @@ PageBeat is built around a simple idea: a rhythm game should feel like a perform
 The player interacts with notes as they reach active judgement lines, but the field itself is expressive. Lines can move, rotate, appear in different configurations and participate in the musical choreography. Notes can approach through carefully directed visual paths, while the underlying judgement remains anchored to beat timing and the intended hit position. The goal is to create charts that are readable at speed but still have the sense of motion, framing and visual punctuation associated with a music performance.
 
 Outside the gamefield, PageBeat uses a character-led interface and a narrative presentation layer. The game is designed to give the rhythm gameplay an identity beyond a menu and song list, while keeping the core interaction immediate: hear the music, read the field, act on the beat.
-
-**Suggested gameplay visual:** `media/gameplay/gameplay-hero.gif`  
-Place a 5 to 8 second silent GIF or short MP4 preview here. Choose a section that shows note motion, the camera-style rim and at least one moving judgement-line moment without revealing a full chart.
-
-<!-- Replace when ready:
-![Short PageBeat gameplay clip](media/gameplay/gameplay-hero.gif)
--->
 
 ---
 
