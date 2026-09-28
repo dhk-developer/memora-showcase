@@ -1,10 +1,8 @@
 # Media
 
-Screenshots and short clips of Memora will be added here as they become safe to publish.
+- `gameplay.webp`: a frame from one of my charts, recorded in the Unity editor on autoplay.
+- `editor.webp`: the charting editor with a chart loaded. Two labels that name the song are blurred.
 
-Publishing rules for this folder:
+A 50-second gameplay clip (muted, because the song isn't mine) is on the [portfolio page](https://dhk-developer.github.io/memora.html).
 
-- original content only: no commercial music audible, no charts that recreate other games' songs;
-- no source code, file paths, raw JSON panels or debug windows in frame;
-- no unreleased story text or unconfirmed character art;
-- prefer short, muted, captioned clips of the editor workflow (edit a keyframe → see the preview) and of gameplay systems (moving lines, floating notes, target convergence).
+Rules for anything added here: muted, no charts that recreate other games' charts, no source code, file paths or raw JSON on screen, and no unreleased story text or character art.

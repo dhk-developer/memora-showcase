@@ -5,7 +5,9 @@ Judgement lines move, notes float free, follow other notes or converge on moving
 
 This repository explains **how it's engineered**, without publishing the game. It contains architecture notes, diagrams, a conceptual data model, clean-room pseudocode, and a small, tested Unity code sample.
 
-> Full case study: **[dhk-developer.github.io/work/memora](https://dhk-developer.github.io/work/memora/)**
+[![Memora gameplay: notes and bars sweep across a black playfield](media/gameplay.webp)](https://dhk-developer.github.io/memora.html)
+
+> Gameplay footage, a playable timing demo and the full write-up: **[dhk-developer.github.io/memora.html](https://dhk-developer.github.io/memora.html)**
 
 ---
 
@@ -49,7 +51,7 @@ diagrams/                  SVG diagrams used above (light and dark aware)
 examples/
   conceptual-chart.json    A small chart in the conceptual model
   pseudocode/              Clean-room pseudocode for the key algorithms
-media/                     Screenshots and clips (being added)
+media/                     Gameplay and editor stills (footage on the portfolio page)
 
 Runtime/  Editor/  Tests/  Samples/  Resources/
                            Small Unity/C# reference implementation (see below)
@@ -75,7 +77,7 @@ Production source, charts, editor tooling, story content, character art, music a
 
 ## Author
 
-**Dae Kang**, Business Analyst, and sole designer and developer of Memora.
+**Dae Kang**, sole designer and developer of Memora. Business Analyst, moving into software development.
 [Portfolio](https://dhk-developer.github.io) · [LinkedIn](https://www.linkedin.com/in/daehurn-kang-003650209) · [GitHub](https://github.com/dhk-developer)
 
 © 2026 Daehurn Kang. All rights reserved. See [LICENSE](LICENSE).
