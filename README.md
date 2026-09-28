@@ -83,7 +83,7 @@ Runtime/  Editor/  Tests/  Samples/  Resources/
 
 ## Reference implementation (Unity / C#)
 
-A compact, framework-light sample written for this repository that demonstrates some of the principles above in runnable form. It is **not** Memora's production code.
+A compact, framework-light sample written for this repository that demonstrates some of the principles above in runnable form.
 
 - `Runtime/Audio/ScheduledBeatClock.cs`: DSP-scheduled playback and beat reporting
 - `Runtime/Timing/BeatMath.cs`, `InputJudge.cs`: beat/second conversion and configurable judgement windows
