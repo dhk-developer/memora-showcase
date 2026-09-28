@@ -1,6 +1,7 @@
 # Memora: technical showcase
 
-**Memora** (working title *PageBeat*) is an independent rhythm game with its own authoring environment, built in **Unity 6 and C#** for Android, iOS and Windows. Judgement lines move, notes float free, follow other notes or converge on moving points, and the whole field is choreographed to the music. Every note is still judged at a single, deterministic time and place.
+**Memora** (working title *PageBeat*) is an independent rhythm game with its own authoring environment, built in **Unity 6 and C#** for Android.
+Judgement lines move, notes float free, follow other notes or converge on moving points, and the whole field is choreographed to the music. Every note is still judged at a single, deterministic time and place.
 
 This repository explains **how it's engineered**, without publishing the game. It contains architecture notes, diagrams, a conceptual data model, clean-room pseudocode, and a small, tested Unity code sample.
 
