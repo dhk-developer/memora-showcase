@@ -1,0 +1,55 @@
+{
+  "_note": "Simplified conceptual representation of a Memora chart. Not the production schema; field names are illustrative.",
+  "schemaVersion": 1,
+  "song": { "id": "example-song", "bpm": 128, "audioOffsetSeconds": 0.045 },
+  "lines": [
+    { "id": "L1", "lifetime": { "start": 0, "duration": 64 }, "hittable": true, "visible": true },
+    { "id": "L2", "lifetime": { "start": 16, "duration": 32 }, "hittable": true, "visible": true }
+  ],
+  "lineEvents": [
+    { "lineId": "L1", "channel": "rotation", "beat": 8, "duration": 4, "from": 0, "to": -12, "easing": "outCubic" },
+    { "lineId": "L2", "channel": "position", "beat": 24, "duration": 0, "from": [0, 0.2], "to": [0, -0.3], "easing": "none",
+      "_comment": "zero duration = a teleport; adaptive notes correct for it" }
+  ],
+  "targetPoints": [
+    { "id": "P1", "lifetime": { "start": 30, "duration": 4 }, "path": [ { "beat": 30, "at": [0.2, 0.6] }, { "beat": 34, "at": [0.5, 0.5], "easing": "inOutSine" } ] }
+  ],
+  "notes": [
+    {
+      "id": "n-01",
+      "judgement": { "beat": 32, "action": "tap", "target": { "kind": "line", "lineId": "L2", "along": 0.62, "offset": 0 } },
+      "presentation": {
+        "approach": "predictive",
+        "leadBeats": 2,
+        "keys": [
+          { "beat": -2.0, "progress": 0.0, "lateral": -0.35, "scale": 0.8, "opacity": 0.0, "easing": "outQuad" },
+          { "beat": -0.5, "progress": 0.85, "lateral": 0.1, "scale": 1.05, "opacity": 1.0, "easing": "inOutSine" },
+          { "beat": 0.25, "progress": 1.0, "lateral": 0.0, "scale": 1.2, "opacity": 0.0 }
+        ]
+      }
+    },
+    {
+      "id": "n-02",
+      "judgement": { "beat": 33, "action": "tap", "target": { "kind": "note", "noteId": "n-01" } },
+      "presentation": { "approach": "adaptive", "leadBeats": 1.5 },
+      "_comment": "judged where n-01's head is at beat 33, not at n-01's own beat"
+    },
+    {
+      "id": "n-03",
+      "judgement": { "beat": 34, "action": "flick", "target": { "kind": "point", "pointId": "P1" } },
+      "presentation": { "approach": "predictive", "leadBeats": 2 }
+    },
+    {
+      "id": "fx-01",
+      "visualOnly": true,
+      "presentation": { "keys": [ { "beat": -1, "progress": 0 }, { "beat": 0, "progress": 1 } ] },
+      "judgement": null,
+      "_comment": "drawn like a note, never judged, scored, missed or autoplayed"
+    }
+  ],
+  "scrollSpeedEvents": [ { "beat": 40, "duration": 2, "from": 1.0, "to": 1.6, "easing": "inQuad" } ],
+  "visualSources": [
+    { "id": "ring-1", "kind": "movingRing", "lifetime": { "start": 48, "duration": 8 }, "parameters": { "radius": 0.4 },
+      "layers": [ { "property": "alpha", "operation": "multiply", "value": 0.6, "order": 0 } ] }
+  ]
+}
